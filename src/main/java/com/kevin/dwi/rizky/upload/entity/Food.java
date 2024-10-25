@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 @Getter
 @Builder
 @Entity
-@Table(name = "makanan")
+@Table(name = "food")
 public class Food {
 
     @Id
@@ -23,9 +23,13 @@ public class Food {
 
     @ManyToOne
     @JoinColumn(name = "kategori_id", nullable = false)
-    private Kategori category;
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "restoran_id", nullable = false)
-    private Restoran restaurant;
+    private Restaurant restaurant;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 }

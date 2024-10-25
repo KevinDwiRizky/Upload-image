@@ -11,14 +11,15 @@ import java.util.List;
 @Getter
 @Builder
 @Entity
-@Table(name = "restaurant")
-public class Restaurant {
+@Table(name = "cart")
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String restaurantName;
-
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<Food> foodList;
+
+     private Long userId;
+     private double totalPrice;
 }
