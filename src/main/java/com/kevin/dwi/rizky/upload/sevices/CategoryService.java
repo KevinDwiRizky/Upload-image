@@ -34,12 +34,21 @@ public class CategoryService {
     public Category saveCategory(Category category, MultipartFile foto) throws IOException {
         if (foto != null && !foto.isEmpty()) {
             String fileName = foto.getOriginalFilename();
-            File destinationFile = new File(uploadDir + fileName);
-            foto.transferTo(destinationFile);
-            category.setFoto(fileName);
+            File uploadDirectory = new File(uploadDir);
+
+            // Cek apakah direktori `uploads` ada, jika tidak, buat baru
+            if (!uploadDirectory.exists()) {
+                uploadDirectory.mkdirs(); // Membuat direktori beserta subdirektori yang diperlukan
+            }
+
+            // Tentukan lokasi file tujuan
+            File destinationFile = new File(uploadDirectory, fileName);
+            foto.transferTo(destinationFile); // Simpan file di lokasi tujuan
+            category.setFoto(fileName); // Simpan nama file ke field `foto` dalam database
         }
         return categoryRepository.save(category);
     }
+
 
     public void deleteCategory(Long id) {
         categoryRepository.deleteById(id);
